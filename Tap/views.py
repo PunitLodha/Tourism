@@ -7,7 +7,7 @@ from textblob import TextBlob
 
 class CityDetail(generics.RetrieveAPIView):
     queryset = City.objects.all()
-    serializer_class = CitySerializer
+    serializer_class = HotelSerializer
 
 def a(request):
     WebScrapping.data2database()
@@ -29,6 +29,23 @@ def b(request):
             continue
         a = a/q
         i['Blob'] = a
+    c.save()
+    html = "<html><body>It is now.</body></html>"
+    return HttpResponse(html)
+
+def c(request):
+    c = City.objects.all()[0]
+    for i in c.hotels:
+        try:
+            if i['Blob'] < 0.29:
+                i['Blob'] = 'NEGATIVE'
+            elif i['Blob'] < 0.35:
+                i['Blob'] = 'NEUTRAL'
+            else:
+                i['Blob'] = 'POSITIVE'
+        except:
+            continue
+            #i['Blob'] == 'Neutral'
     c.save()
     html = "<html><body>It is now.</body></html>"
     return HttpResponse(html)
