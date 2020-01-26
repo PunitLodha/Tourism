@@ -7,3 +7,9 @@ class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = '__all__'
+
+class HotelSerializer(serializers.ModelSerializer):
+    hotels = serializers.JSONField()
+    class Meta:
+        model = City
+        fields = ['hotels']
